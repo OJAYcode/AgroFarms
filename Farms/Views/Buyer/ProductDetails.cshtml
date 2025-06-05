@@ -1,0 +1,337 @@
+@model Farms.Models.Product
+@{
+    ViewData["Title"] = Model?.Name ?? "Product Details";
+}
+
+<div class="row mb-3">
+    <div class="col-12">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">                <li class="breadcrumb-item"><a asp-action="Dashboard">Dashboard</a></li>
+                <li class="breadcrumb-item"><a asp-action="Products">Products</a></li>
+                <li class="breadcrumb-item active">@(Model?.Name ?? "Product")</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<div class="row">    <div class="col-md-6 mb-4">
+        @if (!string.IsNullOrEmpty(Model?.ImageUrl))
+        {
+            <img src="@Model.ImageUrl" class="img-fluid rounded" alt="@(Model?.Name ?? "Product")" style="width: 100%; max-height: 400px; object-fit: cover;">
+        }
+        else
+        {
+            <div class="bg-light rounded d-flex align-items-center justify-content-center" style="width: 100%; height: 400px;">
+                <i class="fas fa-image fa-5x text-muted"></i>
+            </div>
+        }
+    </div>    <div class="col-md-6">
+        <div class="mb-3">
+            <h1>@(Model?.Name ?? "Product")</h1>
+            <div class="mb-2">
+                <span class="badge bg-secondary me-2">@(Model?.Category ?? "Uncategorized")</span>
+                @if (Model?.IsOrganic == true)
+                {
+                    <span class="badge bg-success">Organic</span>
+                }
+            </div>
+        </div>
+
+        <div class="mb-4">
+            <h2 class="text-success">$@(Model?.Price.ToString("F2") ?? "0.00")</h2>
+            <p class="text-muted">per @(Model?.Unit ?? "unit")</p>
+        </div>
+
+        <div class="mb-4">
+            <h5>Description</h5>
+            <p>@(Model?.Description ?? "No description available")</p>
+        </div>
+
+        <div class="mb-4">
+            <div class="row">
+                <div class="col-sm-6">
+                    <strong>Category:</strong> @(Model?.Category ?? "Uncategorized")
+                </div>
+                <div class="col-sm-6">
+                    <strong>Unit:</strong> @(Model?.Unit ?? "unit")
+                </div>
+            </div>
+            <div class="row mt-2">                <div class="col-sm-6">
+                    <strong>Available Stock:</strong> @(Model?.StockQuantity ?? 0) @(Model?.Unit ?? "unit")
+                </div>
+                <div class="col-sm-6">
+                    <strong>Organic:</strong> @(Model?.IsOrganic == true ? "Yes" : "No")
+                </div>
+            </div>
+        </div>
+
+        @if (Model?.StockQuantity > 0)
+        {
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Add to Cart</h5>                    <form id="addToCartForm">
+                        <!-- Add hidden input with the product ID to ensure it's always available -->
+                        <input type="hidden" id="hiddenProductId" value="@(Model?.Id ?? "")" />
+                        <div class="row align-items-end">
+                            <div class="col-md-6 mb-3">
+                                <label for="quantity" class="form-label">Quantity</label>
+                                <div class="input-group">
+                                    <button type="button" class="btn btn-outline-secondary" onclick="decreaseQuantity()">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                    <input type="number" id="quantity" class="form-control text-center" value="1" min="1" max="@(Model?.StockQuantity ?? 0)">
+                                    <button type="button" class="btn btn-outline-secondary" onclick="increaseQuantity()">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </div>
+                                <small class="text-muted">Maximum: @(Model?.StockQuantity ?? 0) @(Model?.Unit ?? "unit")</small>
+                            </div>                            <div class="col-md-6 mb-3">
+                                <button type="button" class="btn btn-success w-100" onclick="addToCart(event)">
+                                    <i class="fas fa-cart-plus me-2"></i>Add to Cart
+                                </button>
+                            </div>
+                        </div>                        <div class="mt-2">
+                            <strong>Total: $<span id="totalPrice">@(Model?.Price.ToString("F2") ?? "0.00")</span></strong>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-warning">
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                This product is currently out of stock.
+            </div>
+        }
+
+        <div class="mt-4">
+            <a asp-action="Products" class="btn btn-outline-primary">
+                <i class="fas fa-arrow-left me-2"></i>Back to Products
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Farmer Information -->
+<div class="row mt-5">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-user-tie me-2"></i>Farmer Information</h5>
+            </div>
+            <div class="card-body">
+                @if (ViewBag.Farmer != null)
+                {
+                    var farmer = ViewBag.Farmer;
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><strong>Farm Name:</strong> @farmer.FarmName</p>
+                            <p><strong>Location:</strong> @farmer.FarmLocation</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>Farm Size:</strong> @farmer.FarmSize acres</p>
+                            <p><strong>Farming Method:</strong> @farmer.FarmingMethods</p>
+                        </div>
+                    </div>
+                    @if (!string.IsNullOrEmpty(farmer.Bio))
+                    {
+                        <div class="mt-3">
+                            <p><strong>About the Farm:</strong></p>
+                            <p>@farmer.Bio</p>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p class="text-muted">Farmer information not available.</p>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Related Products -->
+<div class="row mt-5">
+    <div class="col-12">
+        <h3>Related Products</h3>
+        <p class="text-muted">Other products in @(Model?.Category ?? "this category")</p>
+    </div>
+</div>
+
+@if (ViewBag.RelatedProducts != null && ((IEnumerable<dynamic>)ViewBag.RelatedProducts).Any())
+{
+    <div class="row">
+        @foreach (var product in (IEnumerable<dynamic>)ViewBag.RelatedProducts)
+        {
+            <div class="col-md-6 col-lg-3 mb-4">
+                <div class="card h-100">
+                    @if (!string.IsNullOrEmpty(product.ImageUrl))
+                    {
+                        <img src="@product.ImageUrl" class="card-img-top" alt="@product.Name" style="height: 150px; object-fit: cover;">
+                    }
+                    else
+                    {
+                        <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 150px;">
+                            <i class="fas fa-image fa-2x text-muted"></i>
+                        </div>
+                    }
+                    <div class="card-body">
+                        <h6 class="card-title">@product.Name</h6>
+                        <p class="text-success">$@product.Price.ToString("F2")</p>
+                        <a asp-action="ProductDetails" asp-route-id="@product.Id" class="btn btn-outline-primary btn-sm">
+                            View Details
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+
+@section Scripts {
+    <script>
+        const maxQuantity = @(Model?.StockQuantity ?? 0);
+        const unitPrice = @(Model?.Price ?? 0);
+        const productId = '@(Model?.Id ?? "")';
+
+        function updateTotalPrice() {
+            const quantity = parseInt(document.getElementById('quantity').value);
+            const total = (quantity * unitPrice).toFixed(2);
+            document.getElementById('totalPrice').textContent = total;
+        }
+
+        function increaseQuantity() {
+            const quantityInput = document.getElementById('quantity');
+            const currentValue = parseInt(quantityInput.value);
+            if (currentValue < maxQuantity) {
+                quantityInput.value = currentValue + 1;
+                updateTotalPrice();
+            }
+        }
+
+        function decreaseQuantity() {
+            const quantityInput = document.getElementById('quantity');
+            const currentValue = parseInt(quantityInput.value);
+            if (currentValue > 1) {
+                quantityInput.value = currentValue - 1;
+                updateTotalPrice();
+            }
+        }        function addToCart(event) {
+            // Get product ID from hidden field to ensure it's always available
+            const productId = document.getElementById('hiddenProductId').value;
+            const quantity = parseInt(document.getElementById('quantity').value);
+            
+            console.log('Adding to cart:', { productId, quantity });
+            
+            // Validate inputs
+            if (!productId || productId === '') {
+                showToast('Error: Product ID not found', 'error');
+                console.error('Product ID not found');
+                return;
+            }
+
+            if (!quantity || quantity <= 0) {
+                showToast('Error: Invalid quantity', 'error');
+                console.error('Invalid quantity:', quantity);
+                return;
+            }
+
+            // Show loading state
+            const addButton = event.currentTarget;
+            const originalText = addButton.innerHTML;
+            addButton.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Adding...';
+            addButton.disabled = true;
+
+            const requestData = {
+                ProductId: productId,
+                Quantity: quantity
+            };
+            
+            console.log('Sending request to add to cart:', requestData);
+
+            fetch('@Url.Action("AddToCart", "Buyer")', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },                body: JSON.stringify(requestData)
+            })            .then(response => {
+                console.log('Response received:', response.status, response.statusText);
+                return response.json();
+            })
+            .then(data => {                
+                console.log('Response data:', data);
+                
+                // Restore button state
+                addButton.innerHTML = originalText;
+                addButton.disabled = false;
+
+                if (data.success) {
+                    // Update cart count in navbar
+                    updateCartCount();
+                      // Show success message
+                    showToast(data.message || `${quantity} ${quantity > 1 ? '@(Model?.Unit ?? "unit")' + 's' : '@(Model?.Unit ?? "unit")'} of @(Model?.Name ?? "product") added to cart!`, 'success');
+                } else {
+                    showToast(data.message || 'Error adding to cart', 'error');
+                }
+            })            .catch(error => {
+                // Restore button state
+                addButton.innerHTML = originalText;
+                addButton.disabled = false;
+                
+                console.error('Network error:', error);
+                showToast('Network error. Please try again.', 'error');
+            });
+        }
+
+        function updateCartCount() {
+            fetch('@Url.Action("GetCartCount", "Buyer")')
+                .then(response => response.json())
+                .then(data => {
+                    const cartBadge = document.querySelector('.cart-count');
+                    if (cartBadge && data.count !== undefined) {
+                        cartBadge.textContent = data.count;
+                        if (data.count > 0) {
+                            cartBadge.style.display = 'inline';
+                        }
+                    }
+                })
+                .catch(error => {
+                    console.error('ERROR: Failed to update cart count:', error);
+                });
+        }
+
+        function showToast(message, type) {
+            // Remove existing toasts
+            const existingToasts = document.querySelectorAll('.custom-toast');
+            existingToasts.forEach(toast => toast.remove());
+
+            // Create new toast
+            const toast = document.createElement('div');
+            toast.className = `alert alert-${type === 'success' ? 'success' : 'danger'} position-fixed custom-toast`;
+            toast.style.cssText = 'top: 20px; right: 20px; z-index: 9999; min-width: 300px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);';
+            toast.innerHTML = `
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-triangle'} me-2"></i>
+                    <span>${message}</span>
+                    <button type="button" class="btn-close ms-auto" onclick="this.parentElement.parentElement.remove()"></button>
+                </div>
+            `;
+            
+            document.body.appendChild(toast);
+            
+            // Auto-remove after 5 seconds
+            setTimeout(() => {
+                if (toast.parentNode) {
+                    toast.remove();
+                }
+            }, 5000);
+        }
+
+        // Update total price when quantity changes
+        document.getElementById('quantity').addEventListener('input', updateTotalPrice);        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            updateTotalPrice();
+        });
+    </script>
+}

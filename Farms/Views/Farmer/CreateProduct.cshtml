@@ -1,0 +1,113 @@
+@model Farms.Models.ViewModels.CreateProductViewModel
+
+@{
+    ViewData["Title"] = "Create Product";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow">
+            <div class="card-header bg-success text-white">
+                <h4><i class="fas fa-plus me-2"></i>Add New Product</h4>
+            </div>
+            <div class="card-body">
+                <form asp-action="CreateProduct" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                    
+                    <div class="row">
+                        <div class="col-md-8 mb-3">
+                            <label asp-for="Name" class="form-label"></label>
+                            <input asp-for="Name" class="form-control" placeholder="e.g., Fresh Tomatoes" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label asp-for="Category" class="form-label"></label>
+                            <select asp-for="Category" class="form-select">
+                                <option value="">Select Category</option>
+                                <option value="Vegetables">Vegetables</option>
+                                <option value="Fruits">Fruits</option>
+                                <option value="Grains">Grains</option>
+                                <option value="Dairy">Dairy</option>
+                                <option value="Meat">Meat</option>
+                                <option value="Herbs">Herbs</option>
+                                <option value="Others">Others</option>
+                            </select>
+                            <span asp-validation-for="Category" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Description" class="form-label"></label>
+                        <textarea asp-for="Description" class="form-control" rows="3" placeholder="Describe your product..."></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label asp-for="Price" class="form-label"></label>
+                            <div class="input-group">
+                                <span class="input-group-text">$</span>
+                                <input asp-for="Price" class="form-control" placeholder="0.00" step="0.01" />
+                            </div>
+                            <span asp-validation-for="Price" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label asp-for="Quantity" class="form-label"></label>
+                            <input asp-for="Quantity" class="form-control" type="number" min="1" />
+                            <span asp-validation-for="Quantity" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label asp-for="Unit" class="form-label"></label>
+                            <select asp-for="Unit" class="form-select">
+                                <option value="">Select Unit</option>
+                                <option value="kg">Kilogram (kg)</option>
+                                <option value="lb">Pound (lb)</option>
+                                <option value="ton">Ton</option>
+                                <option value="piece">Piece</option>
+                                <option value="dozen">Dozen</option>
+                                <option value="liter">Liter</option>
+                                <option value="gallon">Gallon</option>
+                                <option value="bag">Bag</option>
+                                <option value="box">Box</option>
+                            </select>
+                            <span asp-validation-for="Unit" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="ImageUrl" class="form-label"></label>
+                        <input asp-for="ImageUrl" class="form-control" placeholder="https://example.com/image.jpg" />
+                        <div class="form-text">Provide a URL to an image of your product (optional)</div>
+                        <span asp-validation-for="ImageUrl" class="text-danger"></span>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="HarvestDate" class="form-label"></label>
+                            <input asp-for="HarvestDate" class="form-control" type="date" />
+                            <span asp-validation-for="HarvestDate" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="ExpiryDate" class="form-label"></label>
+                            <input asp-for="ExpiryDate" class="form-control" type="date" />
+                            <span asp-validation-for="ExpiryDate" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <a href="@Url.Action("Products")" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left me-2"></i>Back to Products
+                        </a>
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-plus me-2"></i>Create Product
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

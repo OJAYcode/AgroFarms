@@ -1,0 +1,477 @@
+﻿@{
+    ViewData["Title"] = "AgroFarms - Farm to Table Marketplace";
+}
+
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container-fluid px-0">
+        <div class="row g-0 min-vh-100">
+            <!-- Left Content -->
+            <div class="col-lg-6 d-flex align-items-center">
+                <div class="hero-content px-5 w-100">
+                    <div class="hero-badge mb-4">
+                        <span class="badge bg-success bg-opacity-10 text-success px-3 py-2 rounded-pill">
+                            🌱 Farm to Table Excellence
+                        </span>
+                    </div>
+                    
+                    <h1 class="hero-title mb-4">
+                        <span class="d-block text-dark fw-bold display-3">Fresh Produce</span>
+                        <span class="d-block text-success fw-bold display-3">Directly from Farms</span>
+                    </h1>
+                    
+                    <p class="hero-description lead text-muted mb-5">
+                        Connect with local farmers and enjoy the freshest, highest quality 
+                        agricultural products delivered straight to your door.
+                    </p>
+                    
+                    <!-- Stats -->
+                    <div class="hero-stats mb-5">
+                        <div class="row text-center">
+                            <div class="col-4">
+                                <div class="stat-item">
+                                    <h3 class="fw-bold text-success mb-0">500+</h3>
+                                    <small class="text-muted">Farmers</small>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="stat-item">
+                                    <h3 class="fw-bold text-success mb-0">2K+</h3>
+                                    <small class="text-muted">Customers</small>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="stat-item">
+                                    <h3 class="fw-bold text-success mb-0">10K+</h3>
+                                    <small class="text-muted">Orders</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Buttons -->
+                    <div class="hero-actions">
+                        <a href="@Url.Action("RegisterBuyer", "Account")" class="btn btn-success btn-lg px-4 me-3 mb-3">
+                            <i class="fas fa-shopping-basket me-2"></i>Start Shopping
+                        </a>
+                        <a href="@Url.Action("RegisterFarmer", "Account")" class="btn btn-outline-success btn-lg px-4 mb-3">
+                            <i class="fas fa-tractor me-2"></i>Sell Products
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Right Visual -->
+            <div class="col-lg-6 hero-visual-side">
+                <div class="hero-visual-container h-100 position-relative">
+                    <!-- Background Pattern -->
+                    <div class="hero-pattern"></div>
+                    
+                    <!-- Floating Cards -->
+                    <div class="floating-card floating-card-1">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-body d-flex align-items-center">
+                                <i class="fas fa-apple-alt fa-2x text-danger me-3"></i>
+                                <div>
+                                    <h6 class="mb-0">Fresh Fruits</h6>
+                                    <small class="text-muted">Organic & Sweet</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="floating-card floating-card-2">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-body d-flex align-items-center">
+                                <i class="fas fa-carrot fa-2x text-warning me-3"></i>
+                                <div>
+                                    <h6 class="mb-0">Vegetables</h6>
+                                    <small class="text-muted">Farm Fresh</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="floating-card floating-card-3">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-body d-flex align-items-center">
+                                <i class="fas fa-seedling fa-2x text-success me-3"></i>
+                                <div>
+                                    <h6 class="mb-0">Herbs</h6>
+                                    <small class="text-muted">Aromatic</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Main Visual -->
+                    <div class="hero-main-visual">
+                        <div class="visual-circle">
+                            <i class="fas fa-leaf fa-4x text-success"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="features-section py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold text-dark">Why Choose AgroFarms?</h2>
+            <p class="lead text-muted">Revolutionizing the way you buy and sell agricultural products</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-lg-4 col-md-6">
+                <div class="feature-card card h-100 border-0 shadow-sm hover-lift">
+                    <div class="card-body text-center p-4">
+                        <div class="feature-icon mb-3">
+                            <i class="fas fa-handshake fa-3x text-primary"></i>
+                        </div>
+                        <h5 class="card-title fw-bold">Direct Connection</h5>
+                        <p class="card-text text-muted">
+                            No middlemen, no extra costs. Connect directly with farmers 
+                            and get the best prices for premium quality products.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="feature-card card h-100 border-0 shadow-sm hover-lift">
+                    <div class="card-body text-center p-4">
+                        <div class="feature-icon mb-3">
+                            <i class="fas fa-leaf fa-3x text-success"></i>
+                        </div>
+                        <h5 class="card-title fw-bold">100% Fresh</h5>
+                        <p class="card-text text-muted">
+                            Harvest-to-delivery in 24 hours. Experience the true taste 
+                            of fresh, organic, and locally sourced products.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="feature-card card h-100 border-0 shadow-sm hover-lift">
+                    <div class="card-body text-center p-4">
+                        <div class="feature-icon mb-3">
+                            <i class="fas fa-shield-alt fa-3x text-warning"></i>
+                        </div>
+                        <h5 class="card-title fw-bold">Secure & Reliable</h5>
+                        <p class="card-text text-muted">
+                            Safe transactions, quality guarantee, and reliable delivery. 
+                            Your satisfaction is our top priority.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- How It Works Section -->
+<section class="how-it-works-section py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold text-dark">How It Works</h2>
+            <p class="lead text-muted">Simple steps to get fresh products or sell your harvest</p>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 mb-5">
+                <h3 class="text-success mb-4"><i class="fas fa-shopping-cart me-2"></i>For Buyers</h3>
+                <div class="steps">
+                    <div class="step-item d-flex mb-4">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h5>Browse Products</h5>
+                            <p class="text-muted">Explore a wide variety of fresh agricultural products from verified farmers in your area.</p>
+                        </div>
+                    </div>
+                    <div class="step-item d-flex mb-4">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h5>Place Your Order</h5>
+                            <p class="text-muted">Add items to cart, choose delivery options, and place your order securely.</p>
+                        </div>
+                    </div>
+                    <div class="step-item d-flex">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h5>Enjoy Fresh Products</h5>
+                            <p class="text-muted">Receive your fresh products directly from the farm to your doorstep.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 mb-5">
+                <h3 class="text-primary mb-4"><i class="fas fa-tractor me-2"></i>For Farmers</h3>
+                <div class="steps">
+                    <div class="step-item d-flex mb-4">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h5>Create Your Store</h5>
+                            <p class="text-muted">Set up your farmer profile and showcase your products to potential buyers.</p>
+                        </div>
+                    </div>
+                    <div class="step-item d-flex mb-4">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h5>List Your Products</h5>
+                            <p class="text-muted">Upload high-quality photos and detailed descriptions of your fresh produce.</p>
+                        </div>
+                    </div>
+                    <div class="step-item d-flex">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h5>Sell & Earn</h5>
+                            <p class="text-muted">Receive orders, manage deliveries, and grow your agricultural business.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action Section -->
+<section class="cta-section py-5 bg-light">
+    <div class="container">
+        <div class="row justify-content-center text-center">
+            <div class="col-lg-10">
+                <h2 class="display-4 fw-bold text-dark mb-4">Ready to Start Your Farm-to-Table Journey?</h2>
+                <p class="lead text-muted mb-5">Join thousands of satisfied customers and farmers who trust AgroFarms for their agricultural needs.</p>
+                
+                <!-- Action Cards -->
+                <div class="row g-4 mb-5">
+                    <!-- Buyer Card -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="cta-card h-100 p-4 bg-white rounded-4 shadow-lg border-0 position-relative overflow-hidden">
+                            <div class="cta-card-bg position-absolute top-0 start-0 w-100 h-100 bg-success bg-opacity-5"></div>
+                            <div class="position-relative">
+                                <div class="cta-icon mb-3">
+                                    <div class="icon-circle bg-success bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center mx-auto" style="width: 80px; height: 80px;">
+                                        <i class="fas fa-shopping-basket fa-2x text-success"></i>
+                                    </div>
+                                </div>
+                                <h4 class="fw-bold text-dark mb-3">Shop Fresh Produce</h4>
+                                <p class="text-muted mb-4">Discover the freshest fruits, vegetables, and farm products delivered straight to your door with guaranteed quality.</p>
+                                <a href="@Url.Action("RegisterBuyer", "Account")" class="btn btn-success btn-lg px-4 py-3 rounded-pill fw-bold">
+                                    <i class="fas fa-user-plus me-2"></i>Join as Buyer
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Seller Card -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="cta-card h-100 p-4 bg-white rounded-4 shadow-lg border-0 position-relative overflow-hidden">
+                            <div class="cta-card-bg position-absolute top-0 start-0 w-100 h-100 bg-primary bg-opacity-5"></div>
+                            <div class="position-relative">
+                                <div class="cta-icon mb-3">
+                                    <div class="icon-circle bg-primary bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center mx-auto" style="width: 80px; height: 80px;">
+                                        <i class="fas fa-tractor fa-2x text-primary"></i>
+                                    </div>
+                                </div>
+                                <h4 class="fw-bold text-dark mb-3">Sell Your Products</h4>
+                                <p class="text-muted mb-4">Connect with customers and grow your farm business with our easy-to-use platform and reach more buyers.</p>
+                                <a href="@Url.Action("RegisterFarmer", "Account")" class="btn btn-primary btn-lg px-4 py-3 rounded-pill fw-bold">
+                                    <i class="fas fa-seedling me-2"></i>Become a Seller
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Sign In Card -->
+                    <div class="col-lg-4 col-md-12">
+                        <div class="cta-card h-100 p-4 bg-white rounded-4 shadow-lg border-0 position-relative overflow-hidden">
+                            <div class="cta-card-bg position-absolute top-0 start-0 w-100 h-100 bg-warning bg-opacity-5"></div>
+                            <div class="position-relative">
+                                <div class="cta-icon mb-3">
+                                    <div class="icon-circle bg-warning bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center mx-auto" style="width: 80px; height: 80px;">
+                                        <i class="fas fa-sign-in-alt fa-2x text-warning"></i>
+                                    </div>
+                                </div>
+                                <h4 class="fw-bold text-dark mb-3">Already a Member?</h4>
+                                <p class="text-muted mb-4">Welcome back! Sign in to your account to continue shopping or managing your farm business with us.</p>
+                                <a href="@Url.Action("Login", "Account")" class="btn btn-warning btn-lg px-4 py-3 rounded-pill fw-bold">
+                                    <i class="fas fa-sign-in-alt me-2"></i>Sign In Here
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Trust Indicators -->
+                <div class="trust-section">
+                    <div class="row text-center">
+                        <div class="col-md-4 mb-3">
+                            <div class="trust-item">
+                                <h3 class="fw-bold text-success mb-1">10,000+</h3>
+                                <p class="text-muted mb-0">Happy Customers</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="trust-item">
+                                <h3 class="fw-bold text-primary mb-1">500+</h3>
+                                <p class="text-muted mb-0">Verified Farmers</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="trust-item">
+                                <h3 class="fw-bold text-warning mb-1">50,000+</h3>
+                                <p class="text-muted mb-0">Orders Delivered</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="testimonials-section py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold text-dark">What Our Users Say</h2>
+            <p class="lead text-muted">Real stories from farmers and buyers in our community</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-lg-4">
+                <div class="testimonial-card card h-100 border-0 shadow-sm">
+                    <div class="card-body p-4">
+                        <div class="stars mb-3">
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                        </div>
+                        <p class="card-text">"AgroFarms has transformed my farming business. I can now sell directly to consumers and get better prices for my organic vegetables."</p>
+                        <div class="d-flex align-items-center mt-3">
+                            <div class="avatar bg-success rounded-circle me-3 d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                                <i class="fas fa-user text-white"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-0">Sarah Johnson</h6>
+                                <small class="text-muted">Organic Farmer</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="testimonial-card card h-100 border-0 shadow-sm">
+                    <div class="card-body p-4">
+                        <div class="stars mb-3">
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                        </div>
+                        <p class="card-text">"The freshest vegetables I've ever bought! Delivered right to my door within hours of harvest. Absolutely love this platform."</p>
+                        <div class="d-flex align-items-center mt-3">
+                            <div class="avatar bg-primary rounded-circle me-3 d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                                <i class="fas fa-user text-white"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-0">Mike Chen</h6>
+                                <small class="text-muted">Family Cook</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="testimonial-card card h-100 border-0 shadow-sm">
+                    <div class="card-body p-4">
+                        <div class="stars mb-3">
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                        </div>
+                        <p class="card-text">"Finally, a platform that connects me directly with local farmers. The quality is amazing and I'm supporting my community!"</p>
+                        <div class="d-flex align-items-center mt-3">
+                            <div class="avatar bg-warning rounded-circle me-3 d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                                <i class="fas fa-user text-white"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-0">Emily Rodriguez</h6>
+                                <small class="text-muted">Restaurant Owner</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Products Section -->
+<section class="featured-products-section py-5" id="popular-products">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold text-dark">Popular Products</h2>
+            <p class="lead text-muted">Discover what's trending in your area</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-lg-3 col-md-6">
+                <div class="product-preview-card card h-100 border-0 shadow-sm hover-lift">
+                    <div class="product-image bg-success bg-opacity-10 d-flex align-items-center justify-content-center" style="height: 200px;">
+                        <i class="fas fa-apple-alt fa-4x text-success"></i>
+                    </div>
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Fresh Apples</h5>
+                        <p class="text-muted mb-2">Organic, locally grown</p>
+                        <p class="fw-bold text-success">$4.99/lb</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="product-preview-card card h-100 border-0 shadow-sm hover-lift">
+                    <div class="product-image bg-warning bg-opacity-10 d-flex align-items-center justify-content-center" style="height: 200px;">
+                        <i class="fas fa-carrot fa-4x text-warning"></i>
+                    </div>
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Baby Carrots</h5>
+                        <p class="text-muted mb-2">Sweet and crunchy</p>
+                        <p class="fw-bold text-success">$3.49/lb</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="product-preview-card card h-100 border-0 shadow-sm hover-lift">
+                    <div class="product-image bg-danger bg-opacity-10 d-flex align-items-center justify-content-center" style="height: 200px;">
+                        <i class="fas fa-pepper-hot fa-4x text-danger"></i>
+                    </div>
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Bell Peppers</h5>
+                        <p class="text-muted mb-2">Colorful and fresh</p>
+                        <p class="fw-bold text-success">$2.99/lb</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="product-preview-card card h-100 border-0 shadow-sm hover-lift">
+                    <div class="product-image bg-info bg-opacity-10 d-flex align-items-center justify-content-center" style="height: 200px;">
+                        <i class="fas fa-leaf fa-4x text-info"></i>
+                    </div>
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Spinach</h5>
+                        <p class="text-muted mb-2">Nutrient-rich greens</p>
+                        <p class="fw-bold text-success">$5.99/bunch</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-4">
+            <a href="@Url.Action("RegisterBuyer", "Account")" class="btn btn-success btn-lg">
+                <i class="fas fa-eye me-2"></i>View All Products
+            </a>
+        </div>
+    </div>
+</section>

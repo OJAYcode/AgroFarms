@@ -1,0 +1,92 @@
+/* Additional fixes for responsive forms */
+
+/* Special styling for form pages */
+body.form-page {
+    background-color: #f8f9fa;
+}
+
+/* Fix for very small screens */
+@media (max-width: 359px) {
+    .card {
+        margin: 0;
+        border-radius: 0;
+    }
+
+    .card-body {
+        padding: 1rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+}
+
+/* Improved form validation styling */
+.text-danger {
+    color: #dc3545;
+    font-size: 80%;
+    margin-top: 0.25rem;
+}
+
+/* Alert styling */
+.alert-danger {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    padding: 0.75rem 1.25rem;
+    margin-bottom: 1rem;
+    border-radius: 0.25rem;
+}
+
+/* Clean input fields */
+.form-control::placeholder {
+    color: #adb5bd;
+    opacity: 1;
+}
+
+.form-control:focus::placeholder {
+    opacity: 0.5;
+}
+
+.form-control.is-valid {
+    border-color: #28a745;
+}
+
+.form-control.is-invalid {
+    border-color: #dc3545;
+}
+
+/* Better mobile experience */
+.container.my-5 {
+    padding-top: 1.5rem !important;
+    padding-bottom: 1.5rem !important;
+}
+
+@media (min-width: 768px) {
+    .container.my-5 {
+        padding-top: 3rem !important;
+        padding-bottom: 3rem !important;
+    }
+}
+
+/* Remove any old complex styles */
+.register-hero,
+.login-hero,
+.hero-overlay,
+.hero-content,
+.register-card,
+.login-card,
+.register-form-container,
+.login-form-container {
+    all: unset !important;
+}
+
+padding-top: 3rem !important;
+padding-bottom: 3rem !important;
+}
+}
+
+/* Fix for footer positioning on form pages */
+.form-page .footer {
+    margin-top: 0 !important;
+}

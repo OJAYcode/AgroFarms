@@ -1,0 +1,121 @@
+is_global = true
+build_property.TargetFramework = net9.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = Farms
+build_property.RootNamespace = Farms
+build_property.ProjectDir = c:\Users\HP\Documents\AgroFarms\Farms\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 9.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = c:\Users\HP\Documents\AgroFarms\Farms
+build_property._RazorSourceGeneratorDebug = 
+build_property.EffectiveAnalysisLevelStyle = 9.0
+build_property.EnableCodeStyleSeverity = 
+
+[c:/Users/HP/Documents/AgroFarms/Farms/Areas/Identity/Pages/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[c:/Users/HP/Documents/AgroFarms/Farms/Views/Account/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxMb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[c:/Users/HP/Documents/AgroFarms/Farms/Views/Account/RegisterBuyer.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxSZWdpc3RlckJ1eWVyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[c:/Users/HP/Documents/AgroFarms/Farms/Views/Account/RegisterFarmer.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxSZWdpc3RlckZhcm1lci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[c:/Users/HP/Documents/AgroFarms/Farms/Views/Buyer/Cart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQnV5ZXJcQ2FydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[c:/Users/HP/Documents/AgroFarms/Farms/Views/Buyer/Checkout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQnV5ZXJcQ2hlY2tvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[c:/Users/HP/Documents/AgroFarms/Farms/Views/Buyer/Dashboard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQnV5ZXJcRGFzaGJvYXJkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[c:/Users/HP/Documents/AgroFarms/Farms/Views/Buyer/Orders.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQnV5ZXJcT3JkZXJzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[c:/Users/HP/Documents/AgroFarms/Farms/Views/Buyer/ProductDetails.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQnV5ZXJcUHJvZHVjdERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[c:/Users/HP/Documents/AgroFarms/Farms/Views/Buyer/Products.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQnV5ZXJcUHJvZHVjdHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[c:/Users/HP/Documents/AgroFarms/Farms/Views/Farmer/CreateProduct.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmFybWVyXENyZWF0ZVByb2R1Y3QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[c:/Users/HP/Documents/AgroFarms/Farms/Views/Farmer/Dashboard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmFybWVyXERhc2hib2FyZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[c:/Users/HP/Documents/AgroFarms/Farms/Views/Farmer/EditProduct.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmFybWVyXEVkaXRQcm9kdWN0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[c:/Users/HP/Documents/AgroFarms/Farms/Views/Farmer/Orders.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmFybWVyXE9yZGVycy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[c:/Users/HP/Documents/AgroFarms/Farms/Views/Farmer/Products.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmFybWVyXFByb2R1Y3RzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[c:/Users/HP/Documents/AgroFarms/Farms/Views/Home/About.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxBYm91dC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[c:/Users/HP/Documents/AgroFarms/Farms/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[c:/Users/HP/Documents/AgroFarms/Farms/Views/Home/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[c:/Users/HP/Documents/AgroFarms/Farms/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[c:/Users/HP/Documents/AgroFarms/Farms/Views/Shared/OrderDetails.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXE9yZGVyRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[c:/Users/HP/Documents/AgroFarms/Farms/Views/Shared/_LoginPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Mb2dpblBhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[c:/Users/HP/Documents/AgroFarms/Farms/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[c:/Users/HP/Documents/AgroFarms/Farms/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[c:/Users/HP/Documents/AgroFarms/Farms/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[c:/Users/HP/Documents/AgroFarms/Farms/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-9129ydpe98

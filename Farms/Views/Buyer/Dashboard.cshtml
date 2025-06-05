@@ -1,0 +1,303 @@
+@{
+    ViewData["Title"] = "Buyer Dashboard";
+}
+
+<!-- Dashboard Header -->
+<div class="dashboard-header bg-gradient-success text-white rounded-4 p-4 mb-4">
+    <div class="row align-items-center">
+        <div class="col-md-8">
+            <div class="d-flex align-items-center mb-3">
+                <div class="avatar-circle me-3">
+                    <i class="fas fa-user fa-2x"></i>
+                </div>
+                <div>
+                    <h2 class="mb-1">Welcome back, @Context.Session.GetString("UserName")!</h2>
+                    <p class="mb-0 opacity-75">
+                        <i class="fas fa-shopping-basket me-2"></i>Discover fresh produce from local farms
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 text-md-end">
+            <div class="dashboard-stats d-flex justify-content-md-end justify-content-center gap-4">
+                <div class="stat-item text-center">
+                    <div class="stat-number">@ViewBag.CartItemCount</div>
+                    <div class="stat-label opacity-75">Items in Cart</div>
+                </div>
+                <div class="stat-item text-center">
+                    <div class="stat-number">@ViewBag.OrderCount</div>
+                    <div class="stat-label opacity-75">Total Orders</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Quick Actions Grid -->
+<div class="row g-4 mb-5">
+    <div class="col-lg-3 col-md-6">
+        <div class="quick-action-card">
+            <a asp-action="Products" class="text-decoration-none">
+                <div class="card border-0 shadow-sm h-100 hover-lift">
+                    <div class="card-body text-center p-4">
+                        <div class="icon-wrapper bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 64px; height: 64px;">
+                            <i class="fas fa-store fa-2x text-primary"></i>
+                        </div>
+                        <h5 class="card-title text-dark mb-2">Browse Products</h5>
+                        <p class="card-text text-muted mb-3">Discover fresh agricultural products from local farms</p>
+                        <div class="btn btn-primary btn-sm rounded-pill px-4">
+                            Shop Now <i class="fas fa-arrow-right ms-2"></i>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+    
+    <div class="col-lg-3 col-md-6">
+        <div class="quick-action-card">
+            <a asp-action="Cart" class="text-decoration-none">
+                <div class="card border-0 shadow-sm h-100 hover-lift">
+                    <div class="card-body text-center p-4 position-relative">
+                        <div class="icon-wrapper bg-success bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 64px; height: 64px;">
+                            <i class="fas fa-shopping-cart fa-2x text-success"></i>
+                        </div>
+                        @if(ViewBag.CartItemCount > 0)
+                        {
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                @ViewBag.CartItemCount
+                            </span>
+                        }
+                        <h5 class="card-title text-dark mb-2">My Cart</h5>
+                        <p class="card-text text-muted mb-3">@ViewBag.CartItemCount items ready for checkout</p>
+                        <div class="btn btn-success btn-sm rounded-pill px-4">
+                            View Cart <i class="fas fa-arrow-right ms-2"></i>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+    
+    <div class="col-lg-3 col-md-6">
+        <div class="quick-action-card">
+            <a asp-action="Orders" class="text-decoration-none">
+                <div class="card border-0 shadow-sm h-100 hover-lift">
+                    <div class="card-body text-center p-4">
+                        <div class="icon-wrapper bg-info bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 64px; height: 64px;">
+                            <i class="fas fa-clipboard-list fa-2x text-info"></i>
+                        </div>
+                        <h5 class="card-title text-dark mb-2">My Orders</h5>
+                        <p class="card-text text-muted mb-3">Track your @ViewBag.OrderCount orders and deliveries</p>
+                        <div class="btn btn-info btn-sm rounded-pill px-4">
+                            View Orders <i class="fas fa-arrow-right ms-2"></i>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+    
+    <div class="col-lg-3 col-md-6">
+        <div class="quick-action-card">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body text-center p-4">
+                    <div class="icon-wrapper bg-warning bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 64px; height: 64px;">
+                        <i class="fas fa-heart fa-2x text-warning"></i>
+                    </div>
+                    <h5 class="card-title text-dark mb-2">Favorites</h5>
+                    <p class="card-text text-muted mb-3">Save products you love for later</p>
+                    <div class="btn btn-outline-warning btn-sm rounded-pill px-4">
+                        Coming Soon
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Orders -->
+@if (ViewBag.RecentOrders != null && ((IEnumerable<dynamic>)ViewBag.RecentOrders).Any())
+{
+    <div class="row mb-5">
+        <div class="col-12">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-white border-0 py-4 d-flex justify-content-between align-items-center">
+                    <div>
+                        <h4 class="mb-1">
+                            <i class="fas fa-clock text-primary me-2"></i>Recent Orders
+                        </h4>
+                        <p class="text-muted mb-0">Track your latest purchases</p>
+                    </div>
+                    <a asp-action="Orders" class="btn btn-outline-primary rounded-pill px-4">
+                        View All <i class="fas fa-arrow-right ms-2"></i>
+                    </a>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th class="border-0 ps-4">Order</th>
+                                    <th class="border-0">Date</th>
+                                    <th class="border-0">Items</th>
+                                    <th class="border-0">Total</th>
+                                    <th class="border-0 pe-4">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var order in (IEnumerable<dynamic>)ViewBag.RecentOrders)
+                                {
+                                    <tr>
+                                        <td class="ps-4">
+                                            <div class="d-flex align-items-center">
+                                                <div class="order-icon bg-primary bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
+                                                    <i class="fas fa-shopping-bag text-primary"></i>
+                                                </div>
+                                                <div>
+                                                    <strong class="text-dark">#@order.Id.ToString().Substring(0, 8)</strong>
+                                                    <br><small class="text-muted">Order ID</small>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="text-dark">@order.CreatedAt.ToString("MMM dd, yyyy")</div>
+                                            <small class="text-muted">@order.CreatedAt.ToString("h:mm tt")</small>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-light text-dark rounded-pill">@order.Items.Count items</span>
+                                        </td>
+                                        <td>
+                                            <strong class="text-success fs-6">$@order.TotalAmount.ToString("F2")</strong>
+                                        </td>
+                                        <td class="pe-4">
+                                            @switch (order.Status.ToString())
+                                            {
+                                                case "Pending":
+                                                    <span class="badge bg-warning bg-opacity-20 text-warning border border-warning rounded-pill px-3 py-2">
+                                                        <i class="fas fa-clock me-1"></i>Pending
+                                                    </span>
+                                                    break;
+                                                case "Processing":
+                                                    <span class="badge bg-info bg-opacity-20 text-info border border-info rounded-pill px-3 py-2">
+                                                        <i class="fas fa-cog me-1"></i>Processing
+                                                    </span>
+                                                    break;
+                                                case "Shipped":
+                                                    <span class="badge bg-primary bg-opacity-20 text-primary border border-primary rounded-pill px-3 py-2">
+                                                        <i class="fas fa-truck me-1"></i>Shipped
+                                                    </span>
+                                                    break;
+                                                case "Delivered":
+                                                    <span class="badge bg-success bg-opacity-20 text-success border border-success rounded-pill px-3 py-2">
+                                                        <i class="fas fa-check me-1"></i>Delivered
+                                                    </span>
+                                                    break;
+                                                default:
+                                                    <span class="badge bg-secondary bg-opacity-20 text-secondary border border-secondary rounded-pill px-3 py-2">
+                                                        @order.Status
+                                                    </span>
+                                                    break;
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<!-- Featured Categories -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="text-center mb-5">
+            <h3 class="display-6 fw-bold text-dark mb-3">Browse by Category</h3>
+            <p class="text-muted fs-5 mb-0">Discover fresh produce from local farms across different categories</p>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4">
+    <div class="col-lg-2 col-md-4 col-6">
+        <a asp-action="Products" asp-route-category="Vegetables" class="text-decoration-none">
+            <div class="category-card card border-0 shadow-sm h-100 hover-lift">
+                <div class="card-body text-center p-4">
+                    <div class="category-icon bg-success bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 64px; height: 64px;">
+                        <i class="fas fa-carrot fa-2x text-success"></i>
+                    </div>
+                    <h6 class="card-title text-dark mb-2 fw-semibold">Vegetables</h6>
+                    <p class="card-text text-muted small mb-0">Fresh & Organic</p>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-lg-2 col-md-4 col-6">
+        <a asp-action="Products" asp-route-category="Fruits" class="text-decoration-none">
+            <div class="category-card card border-0 shadow-sm h-100 hover-lift">
+                <div class="card-body text-center p-4">
+                    <div class="category-icon bg-danger bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 64px; height: 64px;">
+                        <i class="fas fa-apple-alt fa-2x text-danger"></i>
+                    </div>
+                    <h6 class="card-title text-dark mb-2 fw-semibold">Fruits</h6>
+                    <p class="card-text text-muted small mb-0">Sweet & Juicy</p>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-lg-2 col-md-4 col-6">
+        <a asp-action="Products" asp-route-category="Grains" class="text-decoration-none">
+            <div class="category-card card border-0 shadow-sm h-100 hover-lift">
+                <div class="card-body text-center p-4">
+                    <div class="category-icon bg-warning bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 64px; height: 64px;">
+                        <i class="fas fa-seedling fa-2x text-warning"></i>
+                    </div>
+                    <h6 class="card-title text-dark mb-2 fw-semibold">Grains</h6>
+                    <p class="card-text text-muted small mb-0">Wholesome & Natural</p>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-lg-2 col-md-4 col-6">
+        <a asp-action="Products" asp-route-category="Herbs" class="text-decoration-none">
+            <div class="category-card card border-0 shadow-sm h-100 hover-lift">
+                <div class="card-body text-center p-4">
+                    <div class="category-icon bg-success bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 64px; height: 64px;">
+                        <i class="fas fa-leaf fa-2x text-success"></i>
+                    </div>
+                    <h6 class="card-title text-dark mb-2 fw-semibold">Herbs</h6>
+                    <p class="card-text text-muted small mb-0">Aromatic & Fresh</p>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-lg-2 col-md-4 col-6">
+        <a asp-action="Products" asp-route-category="Dairy" class="text-decoration-none">
+            <div class="category-card card border-0 shadow-sm h-100 hover-lift">
+                <div class="card-body text-center p-4">
+                    <div class="category-icon bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 64px; height: 64px;">
+                        <i class="fas fa-cheese fa-2x text-primary"></i>
+                    </div>
+                    <h6 class="card-title text-dark mb-2 fw-semibold">Dairy</h6>
+                    <p class="card-text text-muted small mb-0">Farm Fresh</p>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-lg-2 col-md-4 col-6">
+        <a asp-action="Products" asp-route-category="Meat" class="text-decoration-none">
+            <div class="category-card card border-0 shadow-sm h-100 hover-lift">
+                <div class="card-body text-center p-4">
+                    <div class="category-icon bg-danger bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 64px; height: 64px;">
+                        <i class="fas fa-drumstick-bite fa-2x text-danger"></i>
+                    </div>
+                    <h6 class="card-title text-dark mb-2 fw-semibold">Meat</h6>
+                    <p class="card-text text-muted small mb-0">Premium Quality</p>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>

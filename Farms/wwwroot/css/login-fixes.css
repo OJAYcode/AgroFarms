@@ -1,0 +1,153 @@
+/* Additional fixes for login and register pages to ensure proper display and prevent footer overlapping */
+
+/* Ensure correct stacking order for all elements */
+.main-wrapper {
+    z-index: 10;
+}
+
+.footer {
+    z-index: 5;
+}
+
+/* Specific fixes for login and register pages */
+.login-container,
+.register-container {
+    position: relative;
+    z-index: 20;
+    padding: 2rem 0;
+    min-height: calc(100vh - 200px);
+    /* Ensure vertical centering */
+    display: flex;
+    align-items: center;
+}
+
+/* Card styling for login and register */
+.login-card,
+.register-card {
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.15) !important;
+    background-color: #fff;
+    transition: all 0.3s ease;
+}
+
+.login-hero,
+.register-hero {
+    position: relative;
+    z-index: 10;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)),
+        url('https://images.unsplash.com/photo-1500651230702-0e2d8a49d4ad?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+    background-size: cover;
+    background-position: center;
+    min-height: 100%;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 30;
+    /* Keep content above overlays */
+}
+
+.login-form-container,
+.register-form-container {
+    position: relative;
+    z-index: 30;
+    max-width: 100%;
+    width: 100%;
+}
+
+/* Hero overlay for better text visibility */
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(40, 167, 69, 0.3);
+    /* Green overlay with transparency */
+    z-index: 1;
+}
+
+/* Fix for footer positioning on all pages */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.main-wrapper {
+    flex: 1 0 auto;
+    padding-bottom: 3rem;
+}
+
+.footer {
+    margin-top: auto;
+}
+
+/* Responsive fixes */
+@media (max-width: 991.98px) {
+
+    .login-container,
+    .register-container {
+        padding: 1rem 0;
+    }
+
+    .login-card,
+    .register-card {
+        border-radius: 0.5rem;
+    }
+
+    .login-form-container,
+    .register-form-container {
+        padding: 1.5rem !important;
+    }
+}
+
+@media (max-width: 767.98px) {
+
+    .login-container .row,
+    .register-container .row {
+        flex-direction: column-reverse;
+    }
+
+    .login-hero,
+    .register-hero {
+        min-height: 200px;
+        display: block !important;
+    }
+
+    .hero-content {
+        padding: 1rem !important;
+    }
+
+    .hero-content h1 {
+        font-size: 2rem !important;
+    }
+
+    .hero-content p.lead {
+        font-size: 1rem !important;
+    }
+
+    .login-form-container,
+    .register-form-container {
+        margin: 0 auto;
+        max-width: 100%;
+        box-shadow: none;
+    }
+
+    .register-links .btn {
+        width: 100%;
+        display: block;
+        margin-right: 0 !important;
+        margin-bottom: 0.5rem !important;
+    }
+}
+
+/* Show hero section on mobile */
+@media (max-width: 991.98px) {
+
+    .col-lg-7.d-none.d-lg-flex,
+    .col-lg-5.d-none.d-lg-flex {
+        display: flex !important;
+    }
+}

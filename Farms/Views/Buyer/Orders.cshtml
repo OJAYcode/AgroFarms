@@ -1,0 +1,321 @@
+@model IEnumerable<Farms.Models.Order>
+@{
+    ViewData["Title"] = "My Orders";
+}
+
+<div class="row mb-4">
+    <div class="col-12">
+        <h1><i class="fas fa-clipboard-list me-2"></i>My Orders</h1>
+        <p class="text-muted">Track and manage your orders</p>
+    </div>
+</div>
+
+@if (Model != null && Model.Any())
+{
+    <div class="row mb-4">
+        <div class="col-md-3 mb-3">
+            <div class="card bg-warning text-white">
+                <div class="card-body text-center">
+                    <h4>@ViewBag.PendingOrders</h4>
+                    <p class="mb-0">Pending</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="card bg-info text-white">
+                <div class="card-body text-center">
+                    <h4>@ViewBag.ProcessingOrders</h4>
+                    <p class="mb-0">Processing</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="card bg-primary text-white">
+                <div class="card-body text-center">
+                    <h4>@ViewBag.ShippedOrders</h4>
+                    <p class="mb-0">Shipped</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="card bg-success text-white">
+                <div class="card-body text-center">
+                    <h4>@ViewBag.CompletedOrders</h4>
+                    <p class="mb-0">Completed</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @foreach (var order in Model)
+    {
+        <div class="card mb-4">
+            <div class="card-header">
+                <div class="row align-items-center">
+                    <div class="col-md-3">
+                        <h5 class="mb-0">Order #@order.Id.ToString().Substring(0, 8)</h5>
+                        <small class="text-muted">@order.CreatedAt.ToString("MMM dd, yyyy")</small>
+                    </div>
+                    <div class="col-md-3">
+                        <strong class="text-success">$@order.TotalAmount.ToString("F2")</strong>
+                        <br>
+                        <small class="text-muted">@order.Items.Count items</small>
+                    </div>
+                    <div class="col-md-3">                        @switch (order.Status)
+                        {
+                            case OrderStatus.Pending:
+                                <span class="badge bg-warning fs-6">Pending</span>
+                                break;
+                            case OrderStatus.Processing:
+                                <span class="badge bg-info fs-6">Processing</span>
+                                break;
+                            case OrderStatus.Shipped:
+                                <span class="badge bg-primary fs-6">Shipped</span>
+                                break;
+                            case OrderStatus.Delivered:
+                                <span class="badge bg-success fs-6">Delivered</span>
+                                break;
+                            case OrderStatus.Cancelled:
+                                <span class="badge bg-danger fs-6">Cancelled</span>
+                                break;
+                            default:
+                                <span class="badge bg-secondary fs-6">@order.Status</span>
+                                break;
+                        }
+                    </div>
+                    <div class="col-md-3 text-end">
+                        <button type="button" class="btn btn-outline-primary btn-sm" onclick="toggleOrderDetails('@order.Id')">
+                            <i class="fas fa-eye me-1"></i>View Details
+                        </button>
+                        @if (order.Status == OrderStatus.Pending)
+                        {
+                            <button type="button" class="btn btn-outline-danger btn-sm ms-1" onclick="cancelOrder('@order.Id')">
+                                <i class="fas fa-times me-1"></i>Cancel
+                            </button>
+                        }
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card-body order-details" id="details-@order.Id" style="display: none;">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h6>Order Items</h6>
+                        <div class="table-responsive">
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Product</th>
+                                        <th>Price</th>
+                                        <th>Quantity</th>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in order.Items)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <strong>@item.ProductName</strong>
+                                                <br>
+                                                <small class="text-muted">@item.Category</small>
+                                            </td>
+                                            <td>$@item.Price.ToString("F2")</td>
+                                            <td>@item.Quantity @item.Unit</td>
+                                            <td><strong>$@((item.Price * item.Quantity).ToString("F2"))</strong></td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        @if (!string.IsNullOrEmpty(order.Notes))
+                        {
+                            <div class="mt-3">
+                                <h6>Order Notes</h6>
+                                <p class="text-muted">@order.Notes</p>
+                            </div>
+                        }
+                    </div>
+                    
+                    <div class="col-md-4">                        <h6>Shipping Address</h6>
+                        <address>
+                            @order.ShippingAddress
+                        </address>
+                          <h6 class="mt-4">Order Timeline</h6>
+                        <div class="timeline">
+                            <div class="timeline-item @(order.Status == OrderStatus.Pending || order.Status == OrderStatus.Processing || order.Status == OrderStatus.Shipped || order.Status == OrderStatus.Delivered ? "completed" : "")">
+                                <div class="timeline-marker"></div>
+                                <div class="timeline-content">
+                                    <h6>Order Placed</h6>
+                                    <small>@order.CreatedAt.ToString("MMM dd, yyyy HH:mm")</small>
+                                </div>
+                            </div>
+                            @if (order.Status != OrderStatus.Cancelled)
+                            {
+                                <div class="timeline-item @(order.Status == OrderStatus.Processing || order.Status == OrderStatus.Shipped || order.Status == OrderStatus.Delivered ? "completed" : "")">
+                                    <div class="timeline-marker"></div>
+                                    <div class="timeline-content">
+                                        <h6>Processing</h6>
+                                        @if (order.Status == OrderStatus.Processing || order.Status == OrderStatus.Shipped || order.Status == OrderStatus.Delivered)
+                                        {
+                                            <small>Being prepared</small>
+                                        }
+                                    </div>
+                                </div>
+                                <div class="timeline-item @(order.Status == OrderStatus.Shipped || order.Status == OrderStatus.Delivered ? "completed" : "")">
+                                    <div class="timeline-marker"></div>
+                                    <div class="timeline-content">
+                                        <h6>Shipped</h6>
+                                        @if (order.Status == OrderStatus.Shipped || order.Status == OrderStatus.Delivered)
+                                        {
+                                            <small>On the way</small>
+                                        }
+                                    </div>
+                                </div>
+                                <div class="timeline-item @(order.Status == OrderStatus.Delivered ? "completed" : "")">
+                                    <div class="timeline-marker"></div>
+                                    <div class="timeline-content">
+                                        <h6>Delivered</h6>
+                                        @if (order.Status == OrderStatus.Delivered)
+                                        {
+                                            <small>Order completed</small>
+                                        }
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="timeline-item cancelled">
+                                    <div class="timeline-marker"></div>
+                                    <div class="timeline-content">
+                                        <h6>Cancelled</h6>
+                                        <small>Order was cancelled</small>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}
+else
+{
+    <div class="text-center py-5">
+        <i class="fas fa-clipboard-list fa-5x text-muted mb-3"></i>
+        <h3>No Orders Yet</h3>
+        <p class="text-muted">Start shopping to see your orders here</p>
+        <a asp-action="Products" class="btn btn-success">
+            <i class="fas fa-shopping-bag me-2"></i>Start Shopping
+        </a>
+    </div>
+}
+
+@section Scripts {
+    <script>
+        function toggleOrderDetails(orderId) {
+            const details = document.getElementById(`details-${orderId}`);
+            const button = event.target.closest('button');
+            
+            if (details.style.display === 'none') {
+                details.style.display = 'block';
+                button.innerHTML = '<i class="fas fa-eye-slash me-1"></i>Hide Details';
+            } else {
+                details.style.display = 'none';
+                button.innerHTML = '<i class="fas fa-eye me-1"></i>View Details';
+            }
+        }
+
+        function cancelOrder(orderId) {
+            if (confirm('Are you sure you want to cancel this order?')) {
+                fetch('@Url.Action("CancelOrder", "Buyer")', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        orderId: orderId
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        showToast('Order cancelled successfully', 'success');
+                        setTimeout(() => location.reload(), 1500);
+                    } else {
+                        showToast(data.message || 'Error cancelling order', 'error');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    showToast('Error cancelling order', 'error');
+                });
+            }
+        }
+
+        function showToast(message, type) {
+            const toast = document.createElement('div');
+            toast.className = `alert alert-${type === 'success' ? 'success' : 'danger'} position-fixed`;
+            toast.style.cssText = 'top: 20px; right: 20px; z-index: 9999; min-width: 250px;';
+            toast.textContent = message;
+            
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.remove();
+            }, 3000);
+        }
+    </script>
+
+    <style>
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #e9ecef;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .timeline-marker {
+            position: absolute;
+            left: -25px;
+            top: 0;
+            width: 10px;
+            height: 10px;
+            background: #e9ecef;
+            border-radius: 50%;
+            border: 2px solid #fff;
+        }
+
+        .timeline-item.completed .timeline-marker {
+            background: #198754;
+        }
+
+        .timeline-item.cancelled .timeline-marker {
+            background: #dc3545;
+        }
+
+        .timeline-content h6 {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        .timeline-content small {
+            color: #6c757d;
+        }
+    </style>
+}

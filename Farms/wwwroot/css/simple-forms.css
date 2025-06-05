@@ -1,0 +1,149 @@
+/* Simple Form Styles - Clean, Modern Design */
+
+/* Card styling */
+.card {
+    border-radius: 12px;
+    border: none;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12) !important;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    background-color: #fff;
+}
+
+/* Form container spacing */
+.form-page .container {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+/* Form control styling */
+.form-control,
+.form-select {
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+    transition: all 0.2s;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: #80bdff;
+    box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.15);
+}
+
+.form-label {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+}
+
+/* Button styling */
+.btn {
+    padding: 0.75rem 1.5rem;
+    font-weight: 500;
+    border-radius: 8px;
+    transition: all 0.3s;
+}
+
+.btn-primary {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+}
+
+.btn-primary:hover {
+    background-color: #0b5ed7;
+    border-color: #0a58ca;
+    box-shadow: 0 4px 12px rgba(13, 110, 253, 0.2);
+}
+
+.btn-success {
+    background-color: #198754;
+    border-color: #198754;
+}
+
+.btn-success:hover {
+    background-color: #157347;
+    border-color: #146c43;
+    box-shadow: 0 4px 12px rgba(25, 135, 84, 0.2);
+}
+
+/* Links styling */
+a {
+    color: #0d6efd;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+a:hover {
+    color: #0a58ca;
+    text-decoration: underline;
+}
+
+/* Card header with icon */
+.card-icon {
+    height: 64px;
+    width: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    margin: 0 auto 1rem auto;
+}
+
+.card-icon-primary {
+    background-color: rgba(13, 110, 253, 0.1);
+    color: #0d6efd;
+}
+
+.card-icon-success {
+    background-color: rgba(25, 135, 84, 0.1);
+    color: #198754;
+}
+
+/* Responsive spacing */
+@media (max-width: 768px) {
+    .card-body {
+        padding: 1.5rem;
+    }
+
+    .form-page .container {
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .card-body {
+        padding: 1.25rem;
+    }
+
+    .btn {
+        padding: 0.6rem 1.2rem;
+    }
+}
+
+/* Form validation messages */
+.text-danger {
+    font-size: 80%;
+    margin-top: 0.25rem;
+}
+
+/* Remove any z-index issues */
+[class*="z-index"] {
+    z-index: auto !important;
+}
+
+/* Override any previous complex styles */
+.register-container,
+.login-container,
+.register-card,
+.login-card,
+.register-form-container,
+.login-form-container,
+.register-hero,
+.login-hero,
+.hero-overlay,
+.hero-content {
+    all: unset !important;
+}

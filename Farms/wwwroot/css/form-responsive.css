@@ -1,0 +1,209 @@
+/* Form Responsive Styling */
+
+/* Center align register and login containers */
+.register-container,
+.login-container {
+    min-height: calc(100vh - 280px) !important;
+    /* Calculate height considering header/footer */
+    padding: 3rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Adjust card sizes and make them more responsive */
+.register-card,
+.login-card {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 0.75rem 2rem rgba(0, 0, 0, 0.15) !important;
+    transition: all 0.3s ease;
+    background-color: #fff;
+    position: relative;
+    z-index: 30;
+    /* Ensure it's above other elements */
+}
+
+/* Specific container for form pages */
+.form-page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 220px);
+    /* Account for header and footer */
+    padding: 0;
+}
+
+/* Better form styling */
+.register-form-container,
+.login-form-container {
+    width: 100%;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Ensure the form doesn't take up too much vertical space */
+.register-form,
+.login-form {
+    max-width: 100%;
+}
+
+/* Responsive styling for larger screens */
+@media (min-width: 992px) {
+
+    .register-container,
+    .login-container {
+        padding: 3rem 0;
+    }
+
+    .register-card,
+    .login-card {
+        max-width: 1000px;
+    }
+
+    .register-form-container,
+    .login-form-container {
+        padding: 2.5rem;
+    }
+}
+
+/* Responsive styling for medium screens */
+@media (max-width: 991.98px) {
+
+    .register-card,
+    .login-card {
+        max-width: 95%;
+    }
+
+    .register-hero,
+    .login-hero {
+        min-height: 250px;
+    }
+
+    .hero-content h1 {
+        font-size: 1.8rem !important;
+    }
+}
+
+/* Responsive styling for small screens */
+@media (max-width: 767.98px) {
+
+    .register-container,
+    .login-container {
+        padding: 1rem 0;
+        min-height: calc(100vh - 220px) !important;
+    }
+
+    .register-card,
+    .login-card {
+        max-width: 100%;
+        margin: 0.5rem;
+        border-radius: 0.75rem;
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1) !important;
+    }
+
+    .register-form-container,
+    .login-form-container {
+        padding: 1.5rem;
+    }
+
+    .register-hero,
+    .login-hero {
+        min-height: 200px;
+    }
+
+    /* Make buttons more touch-friendly on mobile */
+    .btn-lg {
+        padding: 0.75rem 1rem;
+        font-size: 1rem;
+    }
+
+    /* Stack form fields in mobile view */
+    .row .col-md-6 {
+        padding: 0 0.5rem;
+    }
+}
+
+/* Responsive styling for very small screens */
+@media (max-width: 575.98px) {
+
+    .register-container,
+    .login-container {
+        padding: 1rem 0;
+    }
+
+    .register-form-container,
+    .login-form-container {
+        padding: 1rem;
+    }
+
+    .register-hero,
+    .login-hero {
+        min-height: 180px;
+    }
+
+    .hero-content h1 {
+        font-size: 1.5rem !important;
+    }
+
+    .hero-content p.lead {
+        font-size: 0.9rem !important;
+    }
+
+    .hero-features .feature-item {
+        font-size: 0.8rem;
+        margin-bottom: 0.5rem !important;
+    }
+
+    /* Stack form fields in mobile view */
+    .row .col-md-6 {
+        padding: 0 0.5rem;
+    }
+}
+
+/* Fix for the form content to be properly centered */
+.register-form-container,
+.login-form-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+}
+
+/* Form styling enhancements */
+.register-form,
+.login-form {
+    width: 100%;
+}
+
+/* Consistent card styling across forms */
+.register-card,
+.login-card {
+    display: flex;
+    flex-direction: row;
+    background-color: #fff;
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+/* Ensure hero sections are consistent */
+.register-hero,
+.login-hero {
+    min-height: 100%;
+    background-size: cover;
+    background-position: center;
+}
+
+/* Fix for any nested elements that might cause overflow */
+.register-form-container>*,
+.login-form-container>* {
+    max-width: 100%;
+}

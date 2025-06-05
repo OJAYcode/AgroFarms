@@ -1,0 +1,323 @@
+@{
+    ViewData["Title"] = "Farmer Dashboard";
+}
+
+<!-- Dashboard Header -->
+<div class="dashboard-header bg-gradient-primary text-white rounded-4 p-4 mb-4">
+    <div class="row align-items-center">
+        <div class="col-md-8">
+            <div class="d-flex align-items-center mb-3">
+                <div class="avatar-circle me-3">
+                    <i class="fas fa-user fa-2x"></i>
+                </div>
+                <div>
+                    <h2 class="mb-1">Welcome back, @Context.Session.GetString("UserName")!</h2>
+                    <p class="mb-0 opacity-75">
+                        <i class="fas fa-seedling me-2"></i>Manage your farm products and grow your business
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 text-md-end">
+            <div class="dashboard-stats d-flex justify-content-md-end justify-content-center gap-4">
+                <div class="stat-item text-center">
+                    <div class="stat-number">@ViewBag.TotalProducts</div>
+                    <div class="stat-label opacity-75">Products</div>
+                </div>
+                <div class="stat-item text-center">
+                    <div class="stat-number">@ViewBag.TotalOrders</div>
+                    <div class="stat-label opacity-75">Orders</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Stats Cards -->
+<div class="row g-4 mb-5">
+    <div class="col-xl-3 col-md-6">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-body p-4">
+                <div class="d-flex align-items-center">
+                    <div class="stat-icon bg-primary bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 56px; height: 56px;">
+                        <i class="fas fa-box fa-lg text-primary"></i>
+                    </div>
+                    <div class="flex-grow-1">
+                        <div class="stat-number text-dark h4 mb-1">@ViewBag.TotalProducts</div>
+                        <div class="stat-label text-muted">Total Products</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-body p-4">
+                <div class="d-flex align-items-center">
+                    <div class="stat-icon bg-success bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 56px; height: 56px;">
+                        <i class="fas fa-clipboard-list fa-lg text-success"></i>
+                    </div>
+                    <div class="flex-grow-1">
+                        <div class="stat-number text-dark h4 mb-1">@ViewBag.TotalOrders</div>
+                        <div class="stat-label text-muted">Total Orders</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-body p-4">
+                <div class="d-flex align-items-center">
+                    <div class="stat-icon bg-info bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 56px; height: 56px;">
+                        <i class="fas fa-dollar-sign fa-lg text-info"></i>
+                    </div>
+                    <div class="flex-grow-1">
+                        <div class="stat-number text-dark h4 mb-1">$@ViewBag.TotalRevenue</div>
+                        <div class="stat-label text-muted">Total Revenue</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6">
+        <div class="card border-0 shadow-sm h-100 bg-warning bg-opacity-10">
+            <div class="card-body p-4 text-center">
+                <div class="stat-icon bg-warning bg-opacity-20 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 56px; height: 56px;">
+                    <i class="fas fa-plus fa-lg text-warning"></i>
+                </div>
+                <div class="mb-3">
+                    <div class="text-dark fw-semibold mb-1">Quick Action</div>
+                    <div class="text-muted small">Add new product</div>
+                </div>
+                <a href="@Url.Action("CreateProduct")" class="btn btn-warning btn-sm rounded-pill px-4">
+                    <i class="fas fa-plus me-2"></i>Add Product
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Quick Actions Grid -->
+<div class="row g-4 mb-5">
+    <div class="col-lg-3 col-md-6">
+        <div class="quick-action-card">
+            <a href="@Url.Action("CreateProduct")" class="text-decoration-none">
+                <div class="card border-0 shadow-sm h-100 hover-lift">
+                    <div class="card-body text-center p-4">
+                        <div class="icon-wrapper bg-success bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 64px; height: 64px;">
+                            <i class="fas fa-plus fa-2x text-success"></i>
+                        </div>
+                        <h5 class="card-title text-dark mb-2">Add New Product</h5>
+                        <p class="card-text text-muted mb-3">List a new product from your farm to reach more buyers</p>
+                        <div class="btn btn-success btn-sm rounded-pill px-4">
+                            Add Product <i class="fas fa-arrow-right ms-2"></i>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+    
+    <div class="col-lg-3 col-md-6">
+        <div class="quick-action-card">
+            <a href="@Url.Action("Products")" class="text-decoration-none">
+                <div class="card border-0 shadow-sm h-100 hover-lift">
+                    <div class="card-body text-center p-4">
+                        <div class="icon-wrapper bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 64px; height: 64px;">
+                            <i class="fas fa-box fa-2x text-primary"></i>
+                        </div>
+                        <h5 class="card-title text-dark mb-2">Manage Products</h5>
+                        <p class="card-text text-muted mb-3">Edit, update pricing, and manage your @ViewBag.TotalProducts products</p>
+                        <div class="btn btn-primary btn-sm rounded-pill px-4">
+                            View Products <i class="fas fa-arrow-right ms-2"></i>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+    
+    <div class="col-lg-3 col-md-6">
+        <div class="quick-action-card">
+            <a href="@Url.Action("Orders")" class="text-decoration-none">
+                <div class="card border-0 shadow-sm h-100 hover-lift">
+                    <div class="card-body text-center p-4">
+                        <div class="icon-wrapper bg-info bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 64px; height: 64px;">
+                            <i class="fas fa-clipboard-list fa-2x text-info"></i>
+                        </div>
+                        <h5 class="card-title text-dark mb-2">View Orders</h5>
+                        <p class="card-text text-muted mb-3">Track and manage your @ViewBag.TotalOrders customer orders</p>
+                        <div class="btn btn-info btn-sm rounded-pill px-4">
+                            View Orders <i class="fas fa-arrow-right ms-2"></i>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+    
+    <div class="col-lg-3 col-md-6">
+        <div class="quick-action-card">
+            <a href="@Url.Action("Index", "Home")" class="text-decoration-none">
+                <div class="card border-0 shadow-sm h-100 hover-lift">
+                    <div class="card-body text-center p-4">
+                        <div class="icon-wrapper bg-secondary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 64px; height: 64px;">
+                            <i class="fas fa-home fa-2x text-secondary"></i>
+                        </div>
+                        <h5 class="card-title text-dark mb-2">Go to Homepage</h5>
+                        <p class="card-text text-muted mb-3">Visit the marketplace to see how customers view your products</p>
+                        <div class="btn btn-outline-secondary btn-sm rounded-pill px-4">
+                            Visit Marketplace <i class="fas fa-arrow-right ms-2"></i>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Products and Orders -->
+<div class="row g-4">
+    <div class="col-lg-6">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-header bg-white border-0 py-4">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="mb-1">
+                            <i class="fas fa-box text-primary me-2"></i>Recent Products
+                        </h5>
+                        <p class="text-muted mb-0 small">Your latest product listings</p>
+                    </div>
+                    <a href="@Url.Action("Products")" class="btn btn-outline-primary btn-sm rounded-pill px-3">
+                        View All <i class="fas fa-arrow-right ms-1"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="card-body p-0">
+                @if (ViewBag.RecentProducts != null && ((List<Farms.Models.Product>)ViewBag.RecentProducts).Any())
+                {
+                    @foreach (var product in (List<Farms.Models.Product>)ViewBag.RecentProducts)
+                    {
+                        <div class="product-item d-flex align-items-center p-4 border-bottom">
+                            <div class="product-icon bg-success bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 48px; height: 48px;">
+                                <i class="fas fa-seedling text-success"></i>
+                            </div>
+                            <div class="flex-grow-1">
+                                <h6 class="mb-1 text-dark">@product.Name</h6>
+                                <div class="d-flex align-items-center gap-3">
+                                    <small class="text-muted">
+                                        <i class="fas fa-tag me-1"></i>@product.Category
+                                    </small>
+                                    <small class="text-muted">
+                                        <i class="fas fa-dollar-sign me-1"></i>$@product.Price/@product.Unit
+                                    </small>
+                                </div>
+                            </div>
+                            <div>
+                                <span class="badge rounded-pill px-3 py-2 @(product.IsAvailable ? "bg-success bg-opacity-20 text-success border border-success" : "bg-danger bg-opacity-20 text-danger border border-danger")">
+                                    <i class="fas fa-@(product.IsAvailable ? "check" : "times") me-1"></i>
+                                    @(product.IsAvailable ? "Available" : "Unavailable")
+                                </span>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="text-center py-5">
+                        <div class="empty-state-icon bg-light rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 64px; height: 64px;">
+                            <i class="fas fa-box text-muted fa-lg"></i>
+                        </div>
+                        <h6 class="text-muted mb-2">No products yet</h6>
+                        <p class="text-muted small mb-3">Start by adding your first product to the marketplace</p>
+                        <a href="@Url.Action("CreateProduct")" class="btn btn-success btn-sm rounded-pill px-4">
+                            <i class="fas fa-plus me-2"></i>Add First Product
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-header bg-white border-0 py-4">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="mb-1">
+                            <i class="fas fa-clipboard-list text-info me-2"></i>Recent Orders
+                        </h5>
+                        <p class="text-muted mb-0 small">Latest customer orders</p>
+                    </div>
+                    <a href="@Url.Action("Orders")" class="btn btn-outline-info btn-sm rounded-pill px-3">
+                        View All <i class="fas fa-arrow-right ms-1"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="card-body p-0">
+                @if (ViewBag.RecentOrders != null && ((List<Farms.Models.Order>)ViewBag.RecentOrders).Any())
+                {
+                    @foreach (var order in (List<Farms.Models.Order>)ViewBag.RecentOrders)
+                    {
+                        <div class="order-item d-flex align-items-center p-4 border-bottom">
+                            <div class="order-icon bg-info bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 48px; height: 48px;">
+                                <i class="fas fa-shopping-bag text-info"></i>
+                            </div>
+                            <div class="flex-grow-1">
+                                <h6 class="mb-1 text-dark">Order #@order.Id.Substring(0, 8)</h6>
+                                <div class="d-flex align-items-center gap-3">
+                                    <small class="text-muted">
+                                        <i class="fas fa-user me-1"></i>@order.BuyerName
+                                    </small>
+                                    <small class="text-success fw-semibold">
+                                        <i class="fas fa-dollar-sign me-1"></i>$@order.TotalAmount.ToString("F2")
+                                    </small>
+                                </div>
+                            </div>
+                            <div>
+                                @switch (order.Status.ToString())
+                                {
+                                    case "Pending":
+                                        <span class="badge bg-warning bg-opacity-20 text-warning border border-warning rounded-pill px-3 py-2">
+                                            <i class="fas fa-clock me-1"></i>Pending
+                                        </span>
+                                        break;
+                                    case "Processing":
+                                        <span class="badge bg-info bg-opacity-20 text-info border border-info rounded-pill px-3 py-2">
+                                            <i class="fas fa-cog me-1"></i>Processing
+                                        </span>
+                                        break;
+                                    case "Shipped":
+                                        <span class="badge bg-primary bg-opacity-20 text-primary border border-primary rounded-pill px-3 py-2">
+                                            <i class="fas fa-truck me-1"></i>Shipped
+                                        </span>
+                                        break;
+                                    case "Delivered":
+                                        <span class="badge bg-success bg-opacity-20 text-success border border-success rounded-pill px-3 py-2">
+                                            <i class="fas fa-check me-1"></i>Delivered
+                                        </span>
+                                        break;
+                                    default:
+                                        <span class="badge bg-secondary bg-opacity-20 text-secondary border border-secondary rounded-pill px-3 py-2">
+                                            @order.Status
+                                        </span>
+                                        break;
+                                }
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="text-center py-5">
+                        <div class="empty-state-icon bg-light rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 64px; height: 64px;">
+                            <i class="fas fa-clipboard-list text-muted fa-lg"></i>
+                        </div>
+                        <h6 class="text-muted mb-2">No orders yet</h6>
+                        <p class="text-muted small mb-0">Orders will appear here when customers purchase your products</p>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

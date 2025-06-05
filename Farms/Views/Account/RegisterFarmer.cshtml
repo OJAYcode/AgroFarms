@@ -1,0 +1,185 @@
+@model Farms.Models.ViewModels.RegisterFarmerViewModel
+
+@{
+    ViewData["Title"] = "Join as Farmer - AgroFarms";
+    Layout = "_Layout";
+}
+
+<!-- Registration Section -->
+<section class="register-section min-vh-100 py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-11 col-lg-10 col-xl-9" style="max-width: 56rem;">
+                <div class="register-card">
+                    <div class="card border-0 shadow-lg">
+                        <div class="card-body p-4 p-md-5">
+                            <!-- Header -->
+                            <div class="text-center mb-4">
+                                <div class="register-icon mb-3">
+                                    <div class="icon-circle bg-success bg-opacity-10 d-inline-flex align-items-center justify-content-center rounded-circle" style="width: 4rem; height: 4rem;">
+                                        <i class="fas fa-seedling fa-2x text-success"></i>
+                                    </div>
+                                </div>
+                                <h2 class="fw-bold text-dark mb-2">Join as Farmer</h2>
+                                <p class="text-muted mb-0">Start selling your fresh produce to local buyers</p>
+                                <div class="hero-badge mt-3">
+                                    <span class="badge bg-success bg-opacity-10 text-success px-3 py-2 rounded-pill">
+                                        🌱 Grow Your Farm Business
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- Form -->
+                            <form asp-action="RegisterFarmer" method="post" class="register-form">
+                                <div asp-validation-summary="ModelOnly" class="alert alert-danger rounded-3" role="alert"></div>
+                                
+                                <!-- Name Fields -->
+                                <div class="row g-3 mb-3">
+                                    <div class="col-sm-6">
+                                        <div class="form-floating">
+                                            <input asp-for="FirstName" class="form-control rounded-3" placeholder="First Name" />
+                                            <label asp-for="FirstName">
+                                                <i class="fas fa-user me-2 text-muted"></i>First Name
+                                            </label>
+                                            <span asp-validation-for="FirstName" class="text-danger small"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-floating">
+                                            <input asp-for="LastName" class="form-control rounded-3" placeholder="Last Name" />
+                                            <label asp-for="LastName">
+                                                <i class="fas fa-user me-2 text-muted"></i>Last Name
+                                            </label>
+                                            <span asp-validation-for="LastName" class="text-danger small"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Email -->
+                                <div class="form-floating mb-3">
+                                    <input asp-for="Email" class="form-control rounded-3" placeholder="name@example.com" />
+                                    <label asp-for="Email">
+                                        <i class="fas fa-envelope me-2 text-muted"></i>Email Address
+                                    </label>
+                                    <span asp-validation-for="Email" class="text-danger small"></span>
+                                </div>
+
+                                <!-- Phone -->
+                                <div class="form-floating mb-3">
+                                    <input asp-for="PhoneNumber" class="form-control rounded-3" placeholder="Phone Number" />
+                                    <label asp-for="PhoneNumber">
+                                        <i class="fas fa-phone me-2 text-muted"></i>Phone Number
+                                    </label>
+                                    <span asp-validation-for="PhoneNumber" class="text-danger small"></span>
+                                </div>
+
+                                <!-- Farm Name -->
+                                <div class="form-floating mb-3">
+                                    <input asp-for="FarmName" class="form-control rounded-3" placeholder="Farm Name" />
+                                    <label asp-for="FarmName">
+                                        <i class="fas fa-tractor me-2 text-muted"></i>Farm Name
+                                    </label>
+                                    <span asp-validation-for="FarmName" class="text-danger small"></span>
+                                </div>
+
+                                <!-- Farm Address -->
+                                <div class="form-floating mb-3">
+                                    <input asp-for="FarmAddress" class="form-control rounded-3" placeholder="Farm Address" />
+                                    <label asp-for="FarmAddress">
+                                        <i class="fas fa-map-marker-alt me-2 text-muted"></i>Farm Address
+                                    </label>
+                                    <span asp-validation-for="FarmAddress" class="text-danger small"></span>
+                                </div>
+
+                                <!-- Farm City and Zip Code -->
+                                <div class="row g-3 mb-3">
+                                    <div class="col-sm-6">
+                                        <div class="form-floating">
+                                            <input asp-for="FarmCity" class="form-control rounded-3" placeholder="Farm City" />
+                                            <label asp-for="FarmCity">
+                                                <i class="fas fa-city me-2 text-muted"></i>Farm City
+                                            </label>
+                                            <span asp-validation-for="FarmCity" class="text-danger small"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-floating">
+                                            <input asp-for="FarmZipCode" class="form-control rounded-3" placeholder="Farm Zip Code" />
+                                            <label asp-for="FarmZipCode">
+                                                <i class="fas fa-mail-bulk me-2 text-muted"></i>Farm Zip Code
+                                            </label>
+                                            <span asp-validation-for="FarmZipCode" class="text-danger small"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Farm Description -->
+                                <div class="form-floating mb-3">
+                                    <textarea asp-for="FarmDescription" class="form-control rounded-3" placeholder="Tell us about your farm..." style="height: 100px"></textarea>
+                                    <label asp-for="FarmDescription">
+                                        <i class="fas fa-align-left me-2 text-muted"></i>Farm Description (Optional)
+                                    </label>
+                                    <span asp-validation-for="FarmDescription" class="text-danger small"></span>
+                                </div>
+
+                                <!-- Password Fields -->
+                                <div class="row g-3 mb-4">
+                                    <div class="col-sm-6">
+                                        <div class="form-floating">
+                                            <input asp-for="Password" class="form-control rounded-3" placeholder="Password" />
+                                            <label asp-for="Password">
+                                                <i class="fas fa-lock me-2 text-muted"></i>Password
+                                            </label>
+                                            <span asp-validation-for="Password" class="text-danger small"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-floating">
+                                            <input asp-for="ConfirmPassword" class="form-control rounded-3" placeholder="Confirm Password" />
+                                            <label asp-for="ConfirmPassword">
+                                                <i class="fas fa-lock me-2 text-muted"></i>Confirm Password
+                                            </label>
+                                            <span asp-validation-for="ConfirmPassword" class="text-danger small"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Terms & Submit -->
+                                <div class="mb-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="agreeTerms" required>
+                                        <label class="form-check-label text-muted" for="agreeTerms">
+                                            I agree to the <a href="#" class="text-success text-decoration-none">Terms of Service</a> and <a href="#" class="text-success text-decoration-none">Privacy Policy</a>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="btn btn-success btn-lg w-100 mb-4 rounded-3">
+                                    <i class="fas fa-seedling me-2"></i>Create Farmer Account
+                                </button>
+                            </form>
+
+                            <!-- Login Link -->
+                            <div class="text-center">
+                                <p class="text-muted mb-0">
+                                    Already have an account? 
+                                    <a asp-action="Login" class="text-success text-decoration-none fw-medium">Sign in here</a>
+                                </p>
+                                <div class="mt-3">
+                                    <p class="text-muted mb-0">
+                                        Want to buy products? 
+                                        <a asp-action="RegisterBuyer" class="text-success text-decoration-none fw-medium">Join as Buyer</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

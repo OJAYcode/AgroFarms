@@ -1,0 +1,227 @@
+@model IEnumerable<Farms.Models.Order>
+@{
+    ViewData["Title"] = "My Orders";
+}
+
+<div class="row mb-4">
+    <div class="col-12">
+        <h1><i class="fas fa-clipboard-list me-2"></i>My Orders</h1>
+        <p class="text-muted">Manage orders for your products</p>
+    </div>
+</div>
+
+<!-- Order Stats -->
+<div class="row mb-4">
+    <div class="col-md-3 mb-3">
+        <div class="card bg-warning text-white">
+            <div class="card-body text-center">
+                <h4>@ViewBag.PendingOrders</h4>
+                <p class="mb-0">Pending</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-3">
+        <div class="card bg-info text-white">
+            <div class="card-body text-center">
+                <h4>@ViewBag.ProcessingOrders</h4>
+                <p class="mb-0">Processing</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-3">
+        <div class="card bg-primary text-white">
+            <div class="card-body text-center">
+                <h4>@ViewBag.ShippedOrders</h4>
+                <p class="mb-0">Shipped</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-3">
+        <div class="card bg-success text-white">
+            <div class="card-body text-center">
+                <h4>@ViewBag.CompletedOrders</h4>
+                <p class="mb-0">Completed</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (Model != null && Model.Any())
+{
+    <div class="card">
+        <div class="card-header">
+            <h5 class="mb-0">Recent Orders</h5>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Order #</th>
+                            <th>Customer</th>
+                            <th>Items</th>
+                            <th>Total</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var order in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <strong>#@order.Id.ToString().Substring(0, 8)</strong>
+                                </td>                                <td>
+                                    <div>
+                                        <strong>@order.BuyerName</strong>
+                                        <br>
+                                        <small class="text-muted">@order.BuyerEmail</small>
+                                    </div>
+                                </td>
+                                <td>
+                                    <small>
+                                        @foreach (var item in order.Items.Take(2))
+                                        {
+                                            <div>@item.ProductName x @item.Quantity</div>
+                                        }
+                                        @if (order.Items.Count > 2)
+                                        {
+                                            <div class="text-muted">+@(order.Items.Count - 2) more...</div>
+                                        }
+                                    </small>
+                                </td>
+                                <td>
+                                    <strong class="text-success">$@order.TotalAmount.ToString("F2")</strong>
+                                </td>                                <td>
+                                    @switch (order.Status)
+                                    {
+                                        case OrderStatus.Pending:
+                                            <span class="badge bg-warning">Pending</span>
+                                            break;
+                                        case OrderStatus.Processing:
+                                            <span class="badge bg-info">Processing</span>
+                                            break;
+                                        case OrderStatus.Shipped:
+                                            <span class="badge bg-primary">Shipped</span>
+                                            break;
+                                        case OrderStatus.Delivered:
+                                            <span class="badge bg-success">Delivered</span>
+                                            break;
+                                        case OrderStatus.Cancelled:
+                                            <span class="badge bg-danger">Cancelled</span>
+                                            break;
+                                        default:
+                                            <span class="badge bg-secondary">@order.Status</span>
+                                            break;
+                                    }
+                                </td>
+                                <td>
+                                    <small>@order.CreatedAt.ToString("MMM dd, yyyy")</small>
+                                </td>
+                                <td>
+                                    <div class="btn-group btn-group-sm">
+                                        <button type="button" class="btn btn-outline-primary" onclick="viewOrder('@order.Id')">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        @if (order.Status == OrderStatus.Pending)
+                                        {
+                                            <button type="button" class="btn btn-outline-success" onclick="updateOrderStatus('@order.Id', 'Processing')">
+                                                <i class="fas fa-play"></i>
+                                            </button>
+                                        }
+                                        @if (order.Status == OrderStatus.Processing)
+                                        {
+                                            <button type="button" class="btn btn-outline-info" onclick="updateOrderStatus('@order.Id', 'Shipped')">
+                                                <i class="fas fa-shipping-fast"></i>
+                                            </button>
+                                        }
+                                        @if (order.Status == OrderStatus.Shipped)
+                                        {
+                                            <button type="button" class="btn btn-outline-success" onclick="updateOrderStatus('@order.Id', 'Delivered')">
+                                                <i class="fas fa-check"></i>
+                                            </button>
+                                        }
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="text-center py-5">
+        <i class="fas fa-clipboard-list fa-5x text-muted mb-3"></i>
+        <h3>No Orders Yet</h3>
+        <p class="text-muted">Orders for your products will appear here</p>
+        <a asp-action="Products" class="btn btn-primary">
+            <i class="fas fa-seedling me-2"></i>Manage Products
+        </a>
+    </div>
+}
+
+<!-- Order Details Modal -->
+<div class="modal fade" id="orderModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Order Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body" id="orderDetails">
+                <!-- Order details will be loaded here -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function viewOrder(orderId) {
+            fetch(`@Url.Action("GetOrderDetails")?orderId=${orderId}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('orderDetails').innerHTML = data.html;
+                    new bootstrap.Modal(document.getElementById('orderModal')).show();
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error loading order details');
+                });
+        }
+
+        function updateOrderStatus(orderId, newStatus) {
+            if (confirm(`Are you sure you want to update this order status to ${newStatus}?`)) {
+                fetch('@Url.Action("UpdateOrderStatus")', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        orderId: orderId,
+                        status: newStatus
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        location.reload();
+                    } else {
+                        alert('Error updating order status');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error updating order status');
+                });
+            }
+        }
+    </script>
+}

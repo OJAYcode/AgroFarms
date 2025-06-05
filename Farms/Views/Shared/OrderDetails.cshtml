@@ -1,0 +1,381 @@
+@model Farms.Models.Order
+@{
+    ViewData["Title"] = "Order Details";
+}
+
+<div class="row mb-4">
+    <div class="col-12">
+        <h1><i class="fas fa-receipt me-2"></i>Order Details</h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-action="Dashboard">Dashboard</a></li>
+                <li class="breadcrumb-item"><a asp-action="Orders">Orders</a></li>
+                <li class="breadcrumb-item active">Order #@Model.Id.ToString().Substring(0, 8)</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-8">
+        <!-- Order Summary -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <h5 class="mb-0">Order #@Model.Id.ToString().Substring(0, 8)</h5>
+                        <small class="text-muted">Placed on @Model.CreatedAt.ToString("MMMM dd, yyyy 'at' HH:mm")</small>
+                    </div>                    <div class="col-md-6 text-end">
+                        @switch (Model.Status)
+                        {
+                            case OrderStatus.Pending:
+                                <span class="badge bg-warning fs-6">Pending</span>
+                                break;
+                            case OrderStatus.Processing:
+                                <span class="badge bg-info fs-6">Processing</span>
+                                break;
+                            case OrderStatus.Shipped:
+                                <span class="badge bg-primary fs-6">Shipped</span>
+                                break;
+                            case OrderStatus.Delivered:
+                                <span class="badge bg-success fs-6">Delivered</span>
+                                break;
+                            case OrderStatus.Cancelled:
+                                <span class="badge bg-danger fs-6">Cancelled</span>
+                                break;
+                            default:
+                                <span class="badge bg-secondary fs-6">@Model.Status</span>
+                                break;
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Unit Price</th>
+                                <th>Quantity</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Items)
+                            {
+                                <tr>
+                                    <td>
+                                        <div>
+                                            <h6 class="mb-1">@item.ProductName</h6>
+                                            <small class="text-muted">@item.Category</small>
+                                            @if (item.IsOrganic)
+                                            {
+                                                <span class="badge bg-success ms-1">Organic</span>
+                                            }
+                                        </div>
+                                    </td>
+                                    <td>$@item.Price.ToString("F2") per @item.Unit</td>
+                                    <td>@item.Quantity @item.Unit</td>
+                                    <td><strong>$@((item.Price * item.Quantity).ToString("F2"))</strong></td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot class="table-light">
+                            <tr>
+                                <td colspan="3" class="text-end"><strong>Subtotal:</strong></td>
+                                <td><strong>$@((Model.TotalAmount * 0.926m).ToString("F2"))</strong></td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" class="text-end"><strong>Tax (8%):</strong></td>
+                                <td><strong>$@((Model.TotalAmount * 0.074m).ToString("F2"))</strong></td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" class="text-end"><strong>Shipping:</strong></td>
+                                <td><strong class="text-success">Free</strong></td>
+                            </tr>
+                            <tr class="table-success">
+                                <td colspan="3" class="text-end"><h5 class="mb-0">Total:</h5></td>
+                                <td><h5 class="text-success mb-0">$@Model.TotalAmount.ToString("F2")</h5></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+                @if (!string.IsNullOrEmpty(Model.Notes))
+                {
+                    <div class="mt-4">
+                        <h6>Order Notes</h6>
+                        <div class="alert alert-light">
+                            @Model.Notes
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <!-- Shipping Information -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-shipping-fast me-2"></i>Shipping Information</h5>
+            </div>            <div class="card-body">
+                <address class="mb-0">
+                    @if (!string.IsNullOrEmpty(Model.ShippingAddress))
+                    {
+                        @Html.Raw(Model.ShippingAddress.Replace("\n", "<br>"))
+                    }
+                    else
+                    {
+                        <span class="text-muted">No shipping address provided</span>
+                    }
+                </address>
+            </div>
+        </div>
+
+        <!-- Order Status Timeline -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-history me-2"></i>Order Timeline</h5>
+            </div>
+            <div class="card-body">                <div class="timeline">
+                    <div class="timeline-item @(Model.Status == OrderStatus.Pending || Model.Status == OrderStatus.Processing || Model.Status == OrderStatus.Shipped || Model.Status == OrderStatus.Delivered ? "completed" : "")">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <h6>Order Placed</h6>
+                            <small>@Model.CreatedAt.ToString("MMM dd, yyyy HH:mm")</small>
+                        </div>
+                    </div>
+                    @if (Model.Status != OrderStatus.Cancelled)
+                    {
+                        <div class="timeline-item @(Model.Status == OrderStatus.Processing || Model.Status == OrderStatus.Shipped || Model.Status == OrderStatus.Delivered ? "completed" : "")">
+                            <div class="timeline-marker"></div>
+                            <div class="timeline-content">
+                                <h6>Processing</h6>
+                                @if (Model.Status == OrderStatus.Processing || Model.Status == OrderStatus.Shipped || Model.Status == OrderStatus.Delivered)
+                                {
+                                    <small>Farmer is preparing your order</small>
+                                }
+                                else
+                                {
+                                    <small>Waiting for farmer confirmation</small>
+                                }
+                            </div>
+                        </div>
+                        <div class="timeline-item @(Model.Status == OrderStatus.Shipped || Model.Status == OrderStatus.Delivered ? "completed" : "")">
+                            <div class="timeline-marker"></div>
+                            <div class="timeline-content">
+                                <h6>Shipped</h6>
+                                @if (Model.Status == OrderStatus.Shipped || Model.Status == OrderStatus.Delivered)
+                                {
+                                    <small>Your order is on the way</small>
+                                }
+                            </div>
+                        </div>
+                        <div class="timeline-item @(Model.Status == OrderStatus.Delivered ? "completed" : "")">
+                            <div class="timeline-marker"></div>
+                            <div class="timeline-content">
+                                <h6>Delivered</h6>
+                                @if (Model.Status == OrderStatus.Delivered)
+                                {
+                                    <small>Order successfully delivered</small>
+                                }
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="timeline-item cancelled">
+                            <div class="timeline-marker"></div>
+                            <div class="timeline-content">
+                                <h6>Cancelled</h6>
+                                <small>Order was cancelled</small>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="card">
+            <div class="card-body">
+                <h6><i class="fas fa-cogs me-2"></i>Actions</h6>
+                  @if (Context.Session.GetString("UserRole") == "Farmer")
+                {
+                    @if (Model.Status == OrderStatus.Pending)
+                    {
+                        <button type="button" class="btn btn-success btn-sm w-100 mb-2" onclick="updateOrderStatus('@Model.Id', 'Processing')">
+                            <i class="fas fa-play me-2"></i>Start Processing
+                        </button>
+                    }
+                    @if (Model.Status == OrderStatus.Processing)
+                    {
+                        <button type="button" class="btn btn-primary btn-sm w-100 mb-2" onclick="updateOrderStatus('@Model.Id', 'Shipped')">
+                            <i class="fas fa-shipping-fast me-2"></i>Mark as Shipped
+                        </button>
+                    }
+                    @if (Model.Status == OrderStatus.Shipped)
+                    {
+                        <button type="button" class="btn btn-success btn-sm w-100 mb-2" onclick="updateOrderStatus('@Model.Id', 'Delivered')">
+                            <i class="fas fa-check me-2"></i>Mark as Delivered
+                        </button>
+                    }
+                }
+                else
+                {
+                    @if (Model.Status == OrderStatus.Pending)
+                    {
+                        <button type="button" class="btn btn-outline-danger btn-sm w-100 mb-2" onclick="cancelOrder('@Model.Id')">
+                            <i class="fas fa-times me-2"></i>Cancel Order
+                        </button>
+                    }
+                }
+
+                <button type="button" class="btn btn-outline-primary btn-sm w-100 mb-2" onclick="window.print()">
+                    <i class="fas fa-print me-2"></i>Print Order
+                </button>
+                
+                <a href="mailto:support@agrofarms.com?subject=Order Inquiry - #@Model.Id.ToString().Substring(0, 8)" class="btn btn-outline-secondary btn-sm w-100">
+                    <i class="fas fa-envelope me-2"></i>Contact Support
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function updateOrderStatus(orderId, newStatus) {
+            if (confirm(`Are you sure you want to update this order status to ${newStatus}?`)) {
+                fetch('@Url.Action("UpdateOrderStatus", "Farmer")', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        orderId: orderId,
+                        status: newStatus
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        showToast('Order status updated successfully', 'success');
+                        setTimeout(() => location.reload(), 1500);
+                    } else {
+                        showToast('Error updating order status', 'error');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    showToast('Error updating order status', 'error');
+                });
+            }
+        }
+
+        function cancelOrder(orderId) {
+            if (confirm('Are you sure you want to cancel this order?')) {
+                fetch('@Url.Action("CancelOrder", "Buyer")', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        orderId: orderId
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        showToast('Order cancelled successfully', 'success');
+                        setTimeout(() => location.reload(), 1500);
+                    } else {
+                        showToast(data.message || 'Error cancelling order', 'error');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    showToast('Error cancelling order', 'error');
+                });
+            }
+        }
+
+        function showToast(message, type) {
+            const toast = document.createElement('div');
+            toast.className = `alert alert-${type === 'success' ? 'success' : 'danger'} position-fixed`;
+            toast.style.cssText = 'top: 20px; right: 20px; z-index: 9999; min-width: 250px;';
+            toast.textContent = message;
+            
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.remove();
+            }, 3000);
+        }
+    </script>
+}
+
+@section Styles {
+    <style>
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #e9ecef;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .timeline-marker {
+            position: absolute;
+            left: -25px;
+            top: 0;
+            width: 10px;
+            height: 10px;
+            background: #e9ecef;
+            border-radius: 50%;
+            border: 2px solid #fff;
+        }
+
+        .timeline-item.completed .timeline-marker {
+            background: #198754;
+        }
+
+        .timeline-item.cancelled .timeline-marker {
+            background: #dc3545;
+        }
+
+        .timeline-content h6 {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        .timeline-content small {
+            color: #6c757d;
+        }
+
+        @@media print {
+            .card {
+                border: 1px solid #000 !important;
+                box-shadow: none !important;
+            }
+            
+            .btn, .timeline, nav {
+                display: none !important;
+            }
+        }
+    </style>
+}

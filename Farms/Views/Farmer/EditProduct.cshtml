@@ -1,0 +1,160 @@
+@model Farms.Models.ViewModels.CreateProductViewModel
+@{
+    ViewData["Title"] = "Edit Product";
+}
+
+<div class="row mb-4">
+    <div class="col-12">
+        <h1><i class="fas fa-edit me-2"></i>Edit Product</h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-action="Dashboard">Dashboard</a></li>
+                <li class="breadcrumb-item"><a asp-action="Products">Products</a></li>
+                <li class="breadcrumb-item active">Edit Product</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">Product Information</h5>
+            </div>
+            <div class="card-body">
+                <form asp-action="EditProduct" method="post" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Name" class="form-label">Product Name</label>
+                            <input asp-for="Name" class="form-control" placeholder="e.g., Fresh Tomatoes">
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Category" class="form-label">Category</label>
+                            <select asp-for="Category" class="form-select">
+                                <option value="">Select Category</option>
+                                <option value="Vegetables">Vegetables</option>
+                                <option value="Fruits">Fruits</option>
+                                <option value="Grains">Grains</option>
+                                <option value="Herbs">Herbs</option>
+                                <option value="Dairy">Dairy</option>
+                                <option value="Meat">Meat</option>
+                                <option value="Other">Other</option>
+                            </select>
+                            <span asp-validation-for="Category" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Description" class="form-label">Description</label>
+                        <textarea asp-for="Description" class="form-control" rows="4" placeholder="Describe your product, growing methods, etc."></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label asp-for="Price" class="form-label">Price ($)</label>
+                            <input asp-for="Price" type="number" step="0.01" class="form-control" placeholder="0.00">
+                            <span asp-validation-for="Price" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label asp-for="Unit" class="form-label">Unit</label>
+                            <select asp-for="Unit" class="form-select">
+                                <option value="">Select Unit</option>
+                                <option value="kg">Kilogram (kg)</option>
+                                <option value="lb">Pound (lb)</option>
+                                <option value="piece">Piece</option>
+                                <option value="dozen">Dozen</option>
+                                <option value="bunch">Bunch</option>
+                                <option value="liter">Liter</option>
+                                <option value="gallon">Gallon</option>
+                                <option value="bag">Bag</option>
+                                <option value="box">Box</option>
+                            </select>
+                            <span asp-validation-for="Unit" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label asp-for="StockQuantity" class="form-label">Stock Quantity</label>
+                            <input asp-for="StockQuantity" type="number" class="form-control" placeholder="0">
+                            <span asp-validation-for="StockQuantity" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Product Image</label>
+                            <input type="file" name="ImageFile" class="form-control" accept="image/*">
+                            <div class="form-text">Upload a clear image of your product (optional)</div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="form-check mt-4">
+                                <input asp-for="IsOrganic" class="form-check-input" type="checkbox">
+                                <label asp-for="IsOrganic" class="form-check-label">
+                                    Organic Product
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                    {
+                        <div class="mb-3">
+                            <label class="form-label">Current Image</label>
+                            <div>
+                                <img src="@Model.ImageUrl" alt="Current product image" class="img-thumbnail" style="max-width: 200px; max-height: 200px;">
+                            </div>
+                        </div>
+                    }
+
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save me-2"></i>Update Product
+                        </button>
+                        <a asp-action="Products" class="btn btn-secondary">
+                            <i class="fas fa-times me-2"></i>Cancel
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">Tips for Better Sales</h5>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled">
+                    <li class="mb-2">
+                        <i class="fas fa-camera text-primary me-2"></i>
+                        Use high-quality, well-lit photos
+                    </li>
+                    <li class="mb-2">
+                        <i class="fas fa-edit text-primary me-2"></i>
+                        Write detailed, honest descriptions
+                    </li>
+                    <li class="mb-2">
+                        <i class="fas fa-tag text-primary me-2"></i>
+                        Price competitively
+                    </li>
+                    <li class="mb-2">
+                        <i class="fas fa-leaf text-primary me-2"></i>
+                        Highlight organic/special qualities
+                    </li>
+                    <li class="mb-2">
+                        <i class="fas fa-clock text-primary me-2"></i>
+                        Keep stock quantities updated
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
